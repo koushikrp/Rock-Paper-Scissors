@@ -21,16 +21,24 @@ function playRound(playerSelection,computerSelction){
 // console.log(playRound(playerSelection,computerSelction));
 
 function game(e){
-    round++;
+    let currentScore = document.createElement('p');
+    currentScore.textContent = `Player Score: ${playerWins} Computer Score: ${computerWins}`;
+    division.appendChild(currentScore);
+    
+    if(playerWins===5 || computerWins===5){
+        const result = document.createElement('h2');
+        result.textContent =   playerWins===5 ? "You Won!! Hurray!" : "Computer Won! Better luck next time.";
+        division.appendChild(result);
+        playerWins=0;
+        computerWins=0;
+    }
     const playerSelection = e.target.textContent;
     const computerSelection = computerPlay();
     let winner= playRound(playerSelection,computerSelection) ;
-
-    if(round==5){
-        
-    }
+    if(winner==='Player') playerWins++;
+    else if(winner==='Computer') computerWins++;
 }
-var round = 0;
+var playerWins=0,computerWins=0;
 const division = document.querySelector('div');
 const buttons = [...document.querySelectorAll('button')];
 buttons.forEach(button => button.addEventListener('click',game));
